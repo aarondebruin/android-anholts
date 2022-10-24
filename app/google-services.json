@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "702208757313",
+    "project_id": "anholts-b3131",
+    "storage_bucket": "anholts-b3131.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:702208757313:android:368357c380d579c6f100c0",
+        "android_client_info": {
+          "package_name": "com.example.anholts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "702208757313-hh8mslabc507b5p5fan7t981tsdnkrfs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.anholts",
+            "certificate_hash": "3f4535556941b10f52cbbfcee2d5e177529eba08"
+          }
+        },
+        {
+          "client_id": "702208757313-vv3c6gat6j32mbsbne739rr0pptj0bhn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsaCeLkaDPXcry3jAArQoXU_dG08-diaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "702208757313-vv3c6gat6j32mbsbne739rr0pptj0bhn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
