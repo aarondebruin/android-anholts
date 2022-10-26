@@ -1,11 +1,11 @@
-package com.example.anholts
+package com.example.anholts.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.anholts.R
 import java.util.Timer
 import kotlin.concurrent.timerTask
-import com.pusher.pushnotifications.PushNotifications;
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     fun redirectToLogin(){
         if(!isDestroyed){
             //Gaat naar deze activity
-            val intent = Intent(this,LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
 
             val tmtask = timerTask {
                 if(!isDestroyed){
