@@ -3,7 +3,9 @@ package com.example.anholts.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.anholts.ApiInterface
+import com.example.anholts.MyAdapter
 import com.example.anholts.R
 import com.example.anholts.dataModelItem
 import com.pusher.pushnotifications.PushNotifications;
@@ -19,11 +21,19 @@ const val BASE_URL = "https://order.anholts.nl/"
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        lateinit var myAdapter: MyAdapter
+        lateinit var linearLayoutManager: LinearLayoutManager
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         PushNotifications.start(getApplicationContext(), "26c8ed71-3f83-4e24-be6e-b0267bcfc106");
         PushNotifications.addDeviceInterest("hello");
+
+        recyclerview_buttons.setHasFixedSize(true)
+        linearLayoutManager = LinearLayoutManager(this)
+        recyclerview_buttons.layoutManager = linearLayoutManager
 
         getdataModel()
 
@@ -45,15 +55,10 @@ class HomeActivity : AppCompatActivity() {
             ) {
                 val responseBody = response.body()!!
 
-                val myStringBuilder = StringBuilder()
+                var myAdapter = MyAdapter(baseContext, responseBody)
+                myAdapter.notifyDataSetChanged()
+                recyclerview_buttons.adapter = myAdapter
 
-                for (dataModel in responseBody) {
-                    myStringBuilder.append("Locatie: ", dataModel.button_location)
-                    myStringBuilder.append("\n")
-                }
-
-
-                txtId.text = myStringBuilder
 
             }
 
