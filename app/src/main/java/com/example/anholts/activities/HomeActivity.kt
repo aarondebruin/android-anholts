@@ -3,6 +3,7 @@ package com.example.anholts.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.anholts.ApiInterface
 import com.example.anholts.MyAdapter
@@ -15,6 +16,12 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.concurrent.Executors
 
 
 const val BASE_URL = "https://order.anholts.nl/"
@@ -37,7 +44,24 @@ class HomeActivity : AppCompatActivity() {
 
         getdataModel()
 
+        loop()
+
     }
+
+
+
+    private fun loop() {
+        CoroutineScope(IO).launch {
+            delay(1000)
+            CoroutineScope(Main).launch {
+                getdataModel()
+                loop()
+            }
+        }
+    }
+
+
+
 
     private fun getdataModel() {
         val retrofitBuilder = Retrofit.Builder()
@@ -67,4 +91,8 @@ class HomeActivity : AppCompatActivity() {
             }
         })
     }
+
+
+
 }
+

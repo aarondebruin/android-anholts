@@ -33,6 +33,4 @@ class MyAdapter(val context: Context, val buttonData: List<dataModelItem>): Recy
     override fun getItemCount(): Int {
         return buttonData.size
     }
-
-
 }
