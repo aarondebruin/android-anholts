@@ -52,7 +52,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun loop() {
         CoroutineScope(IO).launch {
-            delay(1000)
+            delay(30000)
             CoroutineScope(Main).launch {
                 getdataModel()
                 loop()
@@ -90,6 +90,7 @@ class HomeActivity : AppCompatActivity() {
                 Log.d("HomeActivity", "onFailure:" +t.message)
             }
         })
+
     }
 
 

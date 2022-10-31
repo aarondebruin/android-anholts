@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     fun redirectToLogin(){
         if(!isDestroyed){
             //Gaat naar deze activity
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
 
             val tmtask = timerTask {
                 if(!isDestroyed){
