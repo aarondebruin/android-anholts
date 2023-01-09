@@ -1,27 +1,22 @@
 package com.example.anholts.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.anholts.ApiInterface
 import com.example.anholts.MyAdapter
 import com.example.anholts.R
 import com.example.anholts.dataModelItem
-import com.pusher.pushnotifications.PushNotifications;
+import com.google.firebase.messaging.RemoteMessage
+import com.pusher.pushnotifications.PushNotificationReceivedListener
+import com.pusher.pushnotifications.PushNotifications
+import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.concurrent.Executors
 
 
 const val BASE_URL = "https://order.anholts.nl/"
@@ -41,27 +36,27 @@ class HomeActivity : AppCompatActivity() {
         recyclerview_buttons.setHasFixedSize(true)
         linearLayoutManager = LinearLayoutManager(this)
         recyclerview_buttons.layoutManager = linearLayoutManager
-
         getdataModel()
-
-        loop()
-
     }
 
 
-
-    private fun loop() {
-        CoroutineScope(IO).launch {
-            delay(30000)
-            CoroutineScope(Main).launch {
-                getdataModel()
-                loop()
-            }
-        }
+    override fun onResume() {
+        super.onResume()
+        PushNotifications.setOnMessageReceivedListenerForVisibleActivity(
+            this,
+            object : PushNotificationReceivedListener {
+                override fun onMessageReceived(remoteMessage: RemoteMessage) {
+                    val messagePayload = remoteMessage.data["inAppNotificationMessage"]
+                    if (messagePayload == null) {
+                        // Message payload was not set for this notification
+                        Log.i("MyActivity", "ja moi dikke pot bier")
+                        getdataModel()
+                    } else {
+                        Log.i("MyActivity", messagePayload)
+                    }
+                }
+            })
     }
-
-
-
 
     private fun getdataModel() {
         val retrofitBuilder = Retrofit.Builder()
